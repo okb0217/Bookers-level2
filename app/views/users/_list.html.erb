@@ -1,0 +1,51 @@
+<% if book.errors.any? %>
+                    <div id="error_explanation">
+                    <h2><%= book.errors.count %>件のerrorが発生しました。</h2>
+                        <ul>
+                            <% book.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                    <% end %>
+
+
+    			<h2>User info</h2>
+    			<%= attachment_image_tag user, :profile_image, :fill, 100, 100, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
+    			<table class="table">
+    				<tbody>
+    					<tr>
+    						<th>name</th>
+    						<th><%= user.name %></th>
+    					</tr>
+    					<tr>
+    						<th>introduction</th>
+    						<th><%= user.introduction %></th>
+    					</tr>
+    				</tbody>
+    			</table>
+                <% if user.id == current_user.id %>
+                <%= link_to (edit_user_path(user)) do %>
+                <button class="btn btn-default col-xs-12">
+                <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                </button>
+                <% end %>
+                <% end %>
+
+                <h2>New book</h2>
+                <%= form_for(book, url: books_path) do |f| %>
+                    <div class="field row">
+                        <%= f.label :title,"Title" %>
+                        <%= f.text_field :title, class:"col-xs-12" %>
+                    </div>
+
+                    <div class="field row">
+                        <%= f.label :body,"Opinion" %>
+                        <%= f.text_area :body, class:"col-xs-12"%>
+                    </div>
+
+                    <div class="actions row ">
+                        <%= f.submit 'Create Book', class:"btn btn-primary col-xs-12" %>
+                    </div>
+                <% end %>
+
