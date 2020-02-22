@@ -2,15 +2,7 @@ class BooksController < ApplicationController
   before_action :authenticate_user!
 
 
-  def correct_user
-     @book=Book.find(params[:id])
-     unless current_user.id == @book.user.id
-      redirect_to books_path
-    end
-  end
 
-	  def new
-    end
 
     def create
     	@book=Book.new(book_params)
